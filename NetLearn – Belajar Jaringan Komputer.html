@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NetLearn – Belajar Jaringan Komputer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap">
+<style>
+:root{--bg:#f6f9ff;--card:#fff;--ink:#0f2447;--mute:#54688a;--blue:#1d4ed8;--blue2:#2563eb;--sky:#dbeafe;--line:#dbe5f6;--ok:#15803d;--bad:#b91c1c;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1630;--card:#12213f;--ink:#e8efff;--mute:#9db0d3;--blue:#7fb0ff;--blue2:#3b82f6;--sky:#1b2f5c;--line:#26396b;--ok:#4ade80;--bad:#f87171}}
+:root[data-theme="dark"]{--bg:#0b1630;--card:#12213f;--ink:#e8efff;--mute:#9db0d3;--blue:#7fb0ff;--blue2:#3b82f6;--sky:#1b2f5c;--line:#26396b;--ok:#4ade80;--bad:#f87171}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.65}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--card);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:12px 20px}
+.logo{font-weight:800;font-size:1.2rem;color:var(--blue);text-decoration:none}
+.logo span{color:var(--ink)}
+header small{color:var(--mute);margin-left:auto}
+.wrap{max-width:1040px;margin:0 auto;padding:20px;display:grid;grid-template-columns:230px 1fr;gap:28px}
+nav{position:sticky;top:76px;align-self:start;display:flex;flex-direction:column;gap:4px}
+nav a{padding:9px 12px;border-radius:10px;color:var(--mute);text-decoration:none;font-weight:500;font-size:.93rem}
+nav a:hover{background:var(--sky)}
+nav a.on{background:var(--blue2);color:#fff;font-weight:700}
+main{min-width:0}
+.hero{background:linear-gradient(135deg,#1d4ed8,#2563eb 60%,#60a5fa);color:#fff;border-radius:20px;padding:32px 28px;overflow:hidden}
+.hero h1{margin:0 0 8px;font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.15;font-weight:800}
+.hero p{margin:0 0 18px;max-width:46ch;opacity:.92}
+.btn{display:inline-block;background:#fff;color:#1d4ed8;padding:10px 18px;border-radius:999px;font-weight:700;text-decoration:none}
+.btn:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
+.net{width:100%;height:auto;margin-top:18px;display:block}
+.pk{fill:#bfdbfe}
+@media (prefers-reduced-motion:no-preference){.pk{animation:mv 4s linear infinite}@keyframes mv{0%{transform:translateX(0)}100%{transform:translateX(300px)}}}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:20px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-decoration:none;color:inherit;display:block}
+.tile:hover{border-color:var(--blue2)}
+.tile b{display:block;color:var(--blue);margin-bottom:4px}
+.tile span{color:var(--mute);font-size:.9rem}
+article h2{font-size:1.7rem;margin:0 0 4px;line-height:1.2}
+.lead{color:var(--mute);margin:0 0 18px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px}
+.box h3{margin:0 0 6px;color:var(--blue);font-size:1.05rem}
+.box p,.box ul{margin:6px 0}
+.tip{background:var(--sky);border-radius:12px;padding:12px 16px;margin-bottom:14px;font-size:.95rem}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{color:var(--blue)}
+.scroll{overflow-x:auto}
+code{background:var(--sky);padding:1px 6px;border-radius:6px;font-size:.9em}
+.quiz button{display:block;width:100%;text-align:left;margin-top:8px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;cursor:pointer}
+.quiz button:hover:not(:disabled){border-color:var(--blue2)}
+.quiz .ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 15%,transparent)}
+.quiz .bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 15%,transparent)}
+.fb{margin-top:10px;font-weight:700}
+.pager{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+.pager a{padding:10px 16px;border-radius:999px;background:var(--blue2);color:#fff;text-decoration:none;font-weight:700;font-size:.92rem}
+.pager a.ghost{background:var(--sky);color:var(--blue)}
+@media (max-width:760px){
+.wrap{grid-template-columns:1fr;padding:14px;gap:14px}
+nav{position:static;flex-direction:row;overflow-x:auto;padding-bottom:4px}
+nav a{white-space:nowrap;background:var(--card);border:1px solid var(--line)}
+header small{display:none}
+.hero{padding:24px 20px}
+}
+body{background:#fff}
+header{background:#fff}
+.box{border-left:5px solid var(--blue2);background:var(--card)}
+.box h3{color:var(--ink)}
+.box:nth-of-type(even){border-left-color:#38bdf8}
+th{background:var(--sky);color:var(--ink)}
+.tip{background:var(--sky);border-left:5px solid #38bdf8}
+.tile{border-top:4px solid var(--blue2)}
+.tile b{color:var(--ink)}
+article h2{border-bottom:4px solid #38bdf8;display:inline-block;padding-bottom:2px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body,:root:not([data-theme="light"]) header{background:var(--bg)}}
+.logo{display:flex;align-items:center;gap:9px;font-size:1.3rem}
+.logo .wm{color:var(--ink);letter-spacing:-.3px}
+.logo .wm b{color:var(--blue2)}
+.tkj{font-style:normal;background:#38bdf8;color:#06213f;font-size:.72rem;font-weight:800;padding:3px 8px;border-radius:6px;letter-spacing:.5px}
+.team{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:16px}
+.mem{background:var(--card);border:1px solid var(--line);border-top:4px solid #38bdf8;border-radius:14px;padding:16px}
+.mem:nth-child(odd){border-top-color:var(--blue2)}
+.av{width:44px;height:44px;border-radius:50%;background:var(--blue2);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:8px}
+.mem:nth-child(even) .av{background:#38bdf8;color:#06213f}
+.mem b{display:block}
+.mem .rl{color:var(--blue);font-weight:700;font-size:.9rem}
+.mem p{margin:6px 0 0;color:var(--mute);font-size:.92rem}
+</style>
+</head>
+<body>
+<header><a class="logo" href="#/" aria-label="TKJ Skanam, beranda"><svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#1d4ed8"/><path d="M20 11L12 27H28Z" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/><circle cx="20" cy="11" r="4.2" fill="#7dd3fc"/><circle cx="12" cy="27" r="4.2" fill="#fff"/><circle cx="28" cy="27" r="4.2" fill="#fff"/></svg><span class="wm"><b>TKJ</b> Skanam</span></a><small>NetLearn – Belajar Jaringan Komputer · SMK Kelas 11 TKJ</small></header>
+<div class="wrap"><nav id="nav" aria-label="Daftar materi"></nav><main id="main"></main></div>
+<script>
+var M=[
+{t:"Pengenalan Jaringan",s:"Apa itu jaringan komputer dan untuk apa dipakai.",
+b:`<div class="box"><h3>Apa itu jaringan komputer?</h3><p>Jaringan komputer adalah dua perangkat atau lebih yang saling terhubung (lewat kabel atau nirkabel) supaya bisa bertukar data dan berbagi sumber daya seperti file, printer, dan koneksi Internet.</p><p><b>Contoh sehari-hari:</b> di lab TKJ, semua komputer bisa mencetak ke satu printer dan memakai satu koneksi Internet. Itu terjadi karena komputer-komputernya membentuk jaringan.</p></div>
+<div class="box"><h3>Komponen jaringan</h3><ul><li><b>Perangkat pengguna (host)</b>: komputer, laptop, HP.</li><li><b>Perangkat jaringan</b>: switch, router, access point.</li><li><b>Media transmisi</b>: kabel UTP, fiber optik, atau gelombang radio (Wi-Fi).</li><li><b>Protokol</b>: aturan komunikasi yang disepakati, misalnya TCP/IP dan HTTP. Tanpa protokol, dua perangkat tidak akan saling mengerti.</li></ul></div>
+<div class="box"><h3>Jenis jaringan menurut jangkauan</h3><div class="scroll"><table><tr><th>Jenis</th><th>Jangkauan</th><th>Contoh</th></tr><tr><td>PAN</td><td>Beberapa meter</td><td>HP terhubung ke earphone Bluetooth</td></tr><tr><td>LAN</td><td>Satu ruangan atau gedung</td><td>Lab komputer sekolah</td></tr><tr><td>MAN</td><td>Satu kota</td><td>Jaringan antar kantor cabang di satu kota</td></tr><tr><td>WAN</td><td>Antar kota atau negara</td><td>Internet</td></tr></table></div></div>
+<div class="box"><h3>Menurut cara kerja: client-server dan peer-to-peer</h3><p><b>Client-server</b>: ada satu komputer khusus (server) yang melayani permintaan komputer lain (client). Contoh: website. Pengelolaannya terpusat dan lebih aman, cocok untuk sekolah dan perusahaan.</p><p><b>Peer-to-peer (P2P)</b>: semua komputer setara, masing-masing bisa jadi client sekaligus server. Murah dan mudah dibuat, tetapi sulit dikelola kalau komputernya banyak.</p></div>
+<div class="box"><h3>Istilah penting</h3><ul><li><b>Bandwidth</b>: kapasitas maksimum jalur, biasanya dalam Mbps. Ibarat lebar jalan tol.</li><li><b>Latency</b>: waktu tunda data sampai tujuan, dalam milidetik (ms). Semakin kecil semakin baik.</li><li><b>Protokol</b>: aturan komunikasi antar perangkat.</li></ul></div>
+<div class="tip">Manfaat jaringan: berbagi file dan printer, berbagi Internet, komunikasi (chat, email, video call), dan pengelolaan data terpusat.</div>`,
+q:["Jaringan komputer di satu lab sekolah termasuk jenis...",["PAN","LAN","WAN"],1]},
+{t:"Topologi Jaringan",s:"Bentuk susunan hubungan antar perangkat.",
+b:`<div class="box"><h3>Apa itu topologi?</h3><p>Topologi adalah pola susunan hubungan antar perangkat dalam jaringan. Ada <b>topologi fisik</b> (bagaimana kabel dan perangkat dipasang) dan <b>topologi logika</b> (bagaimana data mengalir). Kalau kamu melihat gambar denah kabel, itu topologi fisik.</p></div>
+<div class="box"><h3>1. Topologi Bus</h3><p>Semua komputer disambung ke satu kabel utama (backbone). Kedua ujungnya dipasang <b>terminator</b> agar sinyal tidak memantul.</p><p><b>Kelebihan:</b> hemat kabel, murah, mudah dibuat. <b>Kekurangan:</b> kalau kabel utama putus seluruh jaringan mati, sulit mencari titik rusak, dan makin lambat kalau komputernya banyak. Sekarang jarang dipakai.</p></div>
+<div class="box"><h3>2. Topologi Ring</h3><p>Perangkat dihubungkan melingkar, data berjalan searah dari satu perangkat ke perangkat berikutnya sampai tujuan (biasanya memakai token).</p><p><b>Kelebihan:</b> pengiriman teratur, tidak ada tabrakan data. <b>Kekurangan:</b> satu perangkat atau kabel bermasalah bisa mengganggu seluruh lingkaran, dan menambah perangkat baru mengganggu jaringan.</p></div>
+<div class="box"><h3>3. Topologi Star (bintang)</h3><p>Semua komputer disambung ke satu perangkat pusat, yaitu switch atau hub, masing-masing dengan kabelnya sendiri.</p><p><b>Kelebihan:</b> kalau satu kabel putus, hanya satu komputer yang terganggu; mudah menambah komputer; mudah mencari kerusakan. <b>Kekurangan:</b> kalau switch pusat mati, seluruh jaringan mati; butuh banyak kabel. Ini topologi paling umum di sekolah, kantor, dan rumah.</p></div>
+<div class="box"><h3>4. Topologi Mesh</h3><p>Setiap perangkat terhubung langsung ke perangkat lain. Pada <b>full mesh</b>, jumlah kabel = n(n−1)/2, jadi 5 perangkat butuh 10 kabel.</p><p><b>Kelebihan:</b> sangat andal karena ada banyak jalur cadangan. <b>Kekurangan:</b> sangat mahal dan rumit. Dipakai untuk jaringan penting seperti antar router utama ISP.</p></div>
+<div class="box"><h3>5. Topologi Tree dan Hybrid</h3><p><b>Tree</b> adalah gabungan beberapa star yang disusun bertingkat, cocok untuk gedung bertingkat. <b>Hybrid</b> menggabungkan dua atau lebih topologi berbeda.</p></div>
+<div class="tip">Cara memilih: kebutuhan kecil dan murah pilih star; butuh keandalan tinggi pilih mesh; gedung besar pilih tree.</div>`,
+q:["Topologi yang semua perangkatnya terhubung ke switch pusat adalah...",["Bus","Star","Ring"],1]},
+{t:"Model OSI",s:"7 lapisan yang menjelaskan proses pengiriman data.",
+b:`<div class="box"><h3>Apa itu model OSI?</h3><p>OSI (Open Systems Interconnection) adalah model acuan yang membagi proses komunikasi data menjadi 7 lapisan (layer). Tiap layer punya tugas sendiri dan hanya "berbicara" dengan layer di atas dan di bawahnya. Dengan begitu, kalau ada masalah, kita bisa mencari di layer mana letak kerusakannya.</p><p><b>Analogi:</b> mengirim paket lewat ekspedisi. Kamu menulis isi surat (aplikasi), membungkusnya (presentasi), menentukan kapan dikirim (sesi), memastikan paket sampai lengkap (transport), menulis alamat tujuan (network), menyerahkannya ke kurir lokal (data link), lalu kurir membawanya lewat jalan (physical).</p></div>
+<div class="box"><h3>Tugas tiap layer</h3><div class="scroll"><table><tr><th>Layer</th><th>Tugas</th><th>Data disebut</th><th>Contoh</th></tr>
+<tr><td>7 Application</td><td>Tempat aplikasi mengakses layanan jaringan</td><td>Data</td><td>HTTP, DNS, FTP, SMTP</td></tr>
+<tr><td>6 Presentation</td><td>Mengubah format, enkripsi, kompresi</td><td>Data</td><td>SSL/TLS, JPEG, ASCII</td></tr>
+<tr><td>5 Session</td><td>Membuka, menjaga, dan menutup sesi komunikasi</td><td>Data</td><td>NetBIOS, RPC</td></tr>
+<tr><td>4 Transport</td><td>Memecah data, mengatur pengiriman dan nomor port</td><td>Segment</td><td>TCP, UDP</td></tr>
+<tr><td>3 Network</td><td>Pengalamatan logis (IP) dan pemilihan jalur</td><td>Packet</td><td>IP, ICMP, router</td></tr>
+<tr><td>2 Data Link</td><td>Pengalamatan fisik (MAC) dan pengiriman antar perangkat terdekat</td><td>Frame</td><td>Ethernet, switch</td></tr>
+<tr><td>1 Physical</td><td>Mengirim sinyal listrik, cahaya, atau radio</td><td>Bit</td><td>Kabel, hub, Wi-Fi</td></tr></table></div></div>
+<div class="box"><h3>Enkapsulasi: data dibungkus bertahap</h3><p>Saat mengirim, data bergerak dari layer 7 ke layer 1. Di setiap layer, data diberi <b>header</b> (informasi tambahan) seperti amplop berlapis. Proses ini disebut <b>enkapsulasi</b>. Di komputer penerima terjadi kebalikannya, yaitu <b>dekapsulasi</b>: dari layer 1 ke layer 7, header dibuka satu per satu.</p></div>
+<div class="box"><h3>Contoh: membuka sebuah website</h3><ol><li>Kamu mengetik alamat di browser. Browser memakai HTTP dan DNS (layer 7).</li><li>Data dienkripsi oleh HTTPS (layer 6) dan sesi dibuka (layer 5).</li><li>TCP memecah data jadi segment dan menambah nomor port 443 (layer 4).</li><li>IP menambah alamat IP asal dan tujuan (layer 3).</li><li>Alamat MAC ditambahkan agar sampai ke router terdekat (layer 2).</li><li>Data dikirim sebagai sinyal lewat kabel atau Wi-Fi (layer 1).</li></ol></div>
+<div class="box"><h3>Kenapa penting untuk troubleshooting?</h3><ul><li>Kabel lepas atau lampu link mati: masalah <b>layer 1</b>.</li><li>Salah VLAN atau MAC bermasalah: <b>layer 2</b>.</li><li>IP salah atau tidak bisa ping antar jaringan: <b>layer 3</b>.</li><li>Port diblokir firewall: <b>layer 4</b>.</li><li>Website error padahal koneksi normal: <b>layer 7</b>.</li></ul></div>
+<div class="tip">Jembatan keledai dari atas: <b>All People Seem To Need Data Processing</b> (Application, Presentation, Session, Transport, Network, Data Link, Physical).</div>`,
+q:["Alamat IP dan routing bekerja di layer...",["Network","Transport","Data Link"],0]},
+{t:"TCP/IP",s:"Protokol yang menjalankan Internet.",
+b:`<div class="box"><h3>Apa itu TCP/IP?</h3><p>TCP/IP (Transmission Control Protocol / Internet Protocol) adalah kumpulan protokol yang dipakai Internet. Semua perangkat yang ingin tersambung ke Internet harus memakainya. Modelnya lebih sederhana dari OSI, yaitu 4 layer.</p></div>
+<div class="box"><h3>Empat layer TCP/IP</h3><div class="scroll"><table><tr><th>Layer TCP/IP</th><th>Setara OSI</th><th>Tugas</th><th>Protokol</th></tr><tr><td>Application</td><td>7, 6, 5</td><td>Layanan yang dipakai pengguna</td><td>HTTP, HTTPS, FTP, DNS, SMTP, DHCP</td></tr><tr><td>Transport</td><td>4</td><td>Mengatur pengiriman antar aplikasi lewat port</td><td>TCP, UDP</td></tr><tr><td>Internet</td><td>3</td><td>Pengalamatan dan pemilihan jalur</td><td>IP, ICMP, ARP</td></tr><tr><td>Network Access</td><td>2, 1</td><td>Pengiriman fisik di media jaringan</td><td>Ethernet, Wi-Fi</td></tr></table></div></div>
+<div class="box"><h3>TCP: andal tapi lebih lambat</h3><p>TCP membuat koneksi dulu sebelum mengirim data, lewat <b>three-way handshake</b>:</p><ol><li><b>SYN</b>: klien berkata "aku mau terhubung".</li><li><b>SYN-ACK</b>: server menjawab "oke, aku siap".</li><li><b>ACK</b>: klien menjawab "baik, mulai kirim".</li></ol><p>TCP memberi nomor urut pada data, meminta kirim ulang kalau ada yang hilang, dan menyusun ulang di tujuan. Cocok untuk web, email, dan transfer file.</p></div>
+<div class="box"><h3>UDP: cepat tapi tanpa jaminan</h3><p>UDP langsung mengirim tanpa handshake dan tanpa cek ulang. Kalau ada data hilang, tidak dikirim ulang. Cocok untuk yang butuh cepat dan tahan sedikit kehilangan: video call, streaming, game online, dan DNS.</p></div>
+<div class="box"><h3>Port: alamat aplikasi</h3><p>IP menunjukkan perangkat mana, port menunjukkan aplikasi mana di perangkat itu. Ibarat IP = alamat gedung, port = nomor ruangan.</p><div class="scroll"><table><tr><th>Port</th><th>Protokol</th><th>Fungsi</th></tr><tr><td>20/21</td><td>FTP</td><td>Transfer file</td></tr><tr><td>22</td><td>SSH</td><td>Remote aman</td></tr><tr><td>25</td><td>SMTP</td><td>Kirim email</td></tr><tr><td>53</td><td>DNS</td><td>Nama domain</td></tr><tr><td>80</td><td>HTTP</td><td>Web</td></tr><tr><td>443</td><td>HTTPS</td><td>Web aman</td></tr></table></div></div>
+<div class="tip">ICMP dipakai perintah <code>ping</code> untuk mengecek apakah perangkat lain dapat dijangkau.</div>`,
+q:["Protokol yang cocok untuk streaming atau game yang butuh cepat adalah...",["TCP","UDP","FTP"],1]},
+{t:"Alamat IP",s:"Identitas perangkat di jaringan.",
+b:`<div class="box"><h3>Apa itu alamat IP?</h3><p>IP address adalah alamat unik yang dipakai perangkat agar bisa dikenali dan dihubungi di jaringan, seperti alamat rumah untuk surat. Tanpa IP, data tidak tahu harus dikirim ke mana.</p><p>IPv4 panjangnya 32 bit, dibagi jadi 4 bagian (oktet) yang masing-masing 8 bit. Setiap oktet bernilai 0 sampai 255. Contoh: <code>192.168.1.10</code>.</p></div>
+<div class="box"><h3>Bagian network dan bagian host</h3><p>Alamat IP dibagi dua: bagian <b>network</b> (menunjukkan jaringan mana) dan bagian <b>host</b> (menunjukkan perangkat mana). Pembatasnya ditentukan oleh <b>subnet mask</b>.</p><p>Contoh <code>192.168.1.10</code> dengan mask <code>255.255.255.0</code>: tiga oktet pertama (<code>192.168.1</code>) adalah network, oktet terakhir (<code>10</code>) adalah host. Semua perangkat yang network-nya sama bisa saling berkomunikasi langsung tanpa router.</p></div>
+<div class="box"><h3>Mengubah desimal ke biner</h3><p>Setiap oktet punya 8 bit dengan bobot: <code>128 64 32 16 8 4 2 1</code>. Bit bernilai 1 artinya bobotnya dipakai.</p><p>Contoh angka 168: 128 + 32 + 8 = 168, jadi binernya <code>10101000</code>.</p><div class="scroll"><table><tr><th>Desimal</th><th>Biner</th></tr><tr><td>192</td><td>11000000</td></tr><tr><td>168</td><td>10101000</td></tr><tr><td>1</td><td>00000001</td></tr><tr><td>10</td><td>00001010</td></tr></table></div><p>Jadi 192.168.1.10 = <code>11000000.10101000.00000001.00001010</code>.</p></div>
+<div class="box"><h3>Kelas IP</h3><div class="scroll"><table><tr><th>Kelas</th><th>Oktet pertama</th><th>Mask default</th><th>Jumlah host</th></tr>
+<tr><td>A</td><td>1 – 126</td><td>255.0.0.0 (/8)</td><td>± 16,7 juta</td></tr><tr><td>B</td><td>128 – 191</td><td>255.255.0.0 (/16)</td><td>65.534</td></tr><tr><td>C</td><td>192 – 223</td><td>255.255.255.0 (/24)</td><td>254</td></tr></table></div><p>Angka 127 tidak masuk kelas A karena khusus untuk loopback.</p></div>
+<div class="box"><h3>IP publik dan IP privat</h3><ul><li><b>IP publik</b>: unik di seluruh Internet, diberikan oleh ISP.</li><li><b>IP privat</b>: hanya dipakai di jaringan lokal, boleh sama di banyak jaringan berbeda.</li></ul><p>Rentang IP privat: <code>10.0.0.0 – 10.255.255.255</code>, <code>172.16.0.0 – 172.31.255.255</code>, dan <code>192.168.0.0 – 192.168.255.255</code>. Router memakai <b>NAT</b> untuk menerjemahkan IP privat menjadi IP publik saat keluar ke Internet.</p></div>
+<div class="box"><h3>Alamat khusus</h3><ul><li><code>127.0.0.1</code> – loopback, menunjuk komputer sendiri (untuk tes).</li><li><code>169.254.x.x</code> – APIPA, IP otomatis saat komputer gagal mendapat IP dari DHCP.</li><li><b>Network address</b> – semua bit host bernilai 0, mewakili jaringan (contoh 192.168.1.0). Tidak boleh dipakai perangkat.</li><li><b>Broadcast address</b> – semua bit host bernilai 1, mengirim ke semua perangkat (contoh 192.168.1.255). Tidak boleh dipakai perangkat.</li></ul></div>
+<div class="box"><h3>Statis vs dinamis, dan IPv6</h3><p><b>IP statis</b> diisi manual (cocok untuk server dan printer). <b>IP dinamis</b> diberikan otomatis oleh DHCP (cocok untuk laptop dan HP). Karena IPv4 hanya sekitar 4,3 miliar alamat dan sudah menipis, dibuat <b>IPv6</b> yang panjangnya 128 bit ditulis heksadesimal, contoh <code>2001:db8::1</code>.</p></div>
+<div class="tip">Contoh lengkap 192.168.1.10/24: network <code>192.168.1.0</code>, broadcast <code>192.168.1.255</code>, host yang bisa dipakai <code>192.168.1.1</code> sampai <code>192.168.1.254</code> (254 host).</div>`,
+q:["192.168.1.10 termasuk kelas...",["A","B","C"],2]},
+{t:"Perangkat Jaringan",s:"Kenali alat yang membangun jaringan.",
+b:`<div class="box"><h3>Hub</h3><p>Menerima data lalu mengirimkannya ke <b>semua</b> port tanpa memilih. Akibatnya jaringan ramai dan tidak aman. Sekarang hampir tidak dipakai (bekerja di layer 1).</p></div>
+<div class="box"><h3>Switch</h3><p>Bekerja di layer 2. Switch mencatat MAC address perangkat di setiap port dalam <b>tabel MAC</b>, lalu mengirim data hanya ke port tujuan. Hasilnya lebih cepat dan lebih efisien daripada hub. Ada juga switch layer 3 yang bisa melakukan routing antar VLAN.</p></div>
+<div class="box"><h3>Router</h3><p>Bekerja di layer 3. Router menghubungkan <b>jaringan yang berbeda</b> (misalnya LAN sekolah dengan Internet) dan memilih jalur terbaik memakai alamat IP. IP router di sisi LAN menjadi <b>default gateway</b> bagi komputer.</p></div>
+<div class="box"><h3>Access Point (AP)</h3><p>Perangkat yang mengubah sinyal kabel menjadi sinyal Wi-Fi sehingga perangkat nirkabel bisa terhubung ke LAN. Router Wi-Fi rumahan biasanya sudah menggabungkan router, switch, dan AP.</p></div>
+<div class="box"><h3>Modem</h3><p>Mengubah sinyal dari ISP (misalnya kabel telepon, fiber, atau seluler) menjadi sinyal yang dimengerti jaringan, dan sebaliknya.</p></div>
+<div class="box"><h3>NIC dan repeater</h3><p><b>NIC (Network Interface Card)</b> adalah kartu jaringan di tiap komputer, punya MAC address unik. <b>Repeater</b> menguatkan sinyal agar bisa menjangkau jarak lebih jauh.</p></div>
+<div class="box"><h3>Firewall</h3><p>Perangkat atau software yang menyaring lalu lintas masuk dan keluar sesuai aturan keamanan.</p></div>
+<div class="box"><h3>Ringkasan perbedaan</h3><div class="scroll"><table><tr><th>Perangkat</th><th>Layer OSI</th><th>Memakai</th><th>Fungsi utama</th></tr><tr><td>Hub</td><td>1</td><td>-</td><td>Menyebar ke semua port</td></tr><tr><td>Switch</td><td>2</td><td>MAC address</td><td>Menghubungkan perangkat satu LAN</td></tr><tr><td>Router</td><td>3</td><td>IP address</td><td>Menghubungkan antar jaringan</td></tr></table></div></div>
+<div class="tip">Ingat: switch menghubungkan perangkat di jaringan yang sama, router menghubungkan jaringan yang berbeda.</div>`,
+q:["Perangkat yang menghubungkan dua jaringan berbeda adalah...",["Switch","Router","Hub"],1]},
+{t:"Media Transmisi",s:"Kabel UTP, fiber optik, dan Wi-Fi.",
+b:`<div class="box"><h3>Kabel UTP</h3><p>UTP (Unshielded Twisted Pair) berisi 8 kabel kecil yang dipilin berpasangan agar gangguan sinyal berkurang. Konektornya <b>RJ-45</b>. Jarak maksimum 100 meter per segmen.</p><div class="scroll"><table><tr><th>Kategori</th><th>Kecepatan umum</th><th>Catatan</th></tr><tr><td>Cat5e</td><td>hingga 1 Gbps</td><td>Umum untuk LAN</td></tr><tr><td>Cat6</td><td>1 Gbps, 10 Gbps jarak pendek</td><td>Lebih tahan gangguan</td></tr></table></div><p><b>STP</b> punya pelindung logam sehingga lebih tahan gangguan, tapi lebih mahal.</p></div>
+<div class="box"><h3>Urutan kabel dan jenisnya</h3><p><b>T568B</b>: putih-oranye, oranye, putih-hijau, biru, putih-biru, hijau, putih-cokelat, cokelat.</p><p><b>T568A</b>: putih-hijau, hijau, putih-oranye, biru, putih-biru, oranye, putih-cokelat, cokelat.</p><ul><li><b>Straight</b>: kedua ujung sama (B–B). Untuk menghubungkan perangkat berbeda, misalnya PC ke switch.</li><li><b>Crossover</b>: satu ujung A, ujung lain B. Untuk perangkat sejenis, misalnya PC ke PC. Switch modern sudah otomatis menyesuaikan.</li></ul></div>
+<div class="box"><h3>Langkah membuat kabel (crimping)</h3><ol><li>Kupas selubung kabel sekitar 2 cm.</li><li>Urutkan 8 kabel sesuai T568B, luruskan.</li><li>Potong rata ujungnya, sisakan sekitar 1,2 cm.</li><li>Masukkan ke konektor RJ-45 sampai ujung kabel menyentuh ujung konektor.</li><li>Jepit dengan crimping tool.</li><li>Uji dengan LAN tester: semua lampu harus menyala berurutan 1 sampai 8.</li></ol></div>
+<div class="box"><h3>Fiber optik</h3><p>Mengirim data berupa cahaya lewat serat kaca. Kecepatan sangat tinggi, jarak jauh, dan kebal gangguan listrik, tapi lebih mahal. <b>Single-mode</b> untuk jarak sangat jauh (puluhan km), <b>multi-mode</b> untuk jarak dekat (dalam gedung atau kampus).</p></div>
+<div class="box"><h3>Nirkabel (Wi-Fi)</h3><ul><li><b>2,4 GHz</b>: jangkauan luas dan menembus tembok lebih baik, tetapi lebih lambat dan sering terganggu (microwave, Bluetooth). Channel yang tidak saling tumpang tindih: 1, 6, 11.</li><li><b>5 GHz</b>: lebih cepat dan lebih sepi, jangkauan lebih pendek.</li><li>802.11n = Wi-Fi 4, 802.11ac = Wi-Fi 5, 802.11ax = Wi-Fi 6.</li></ul></div>`,
+q:["Standar 802.11ax dikenal sebagai...",["Wi-Fi 4","Wi-Fi 5","Wi-Fi 6"],2]},
+{t:"Subnetting",s:"Membagi satu jaringan menjadi beberapa bagian.",
+b:`<div class="box"><h3>Kenapa perlu subnetting?</h3><p>Subnetting adalah memecah satu jaringan besar menjadi beberapa jaringan kecil (subnet). Manfaatnya: alamat IP tidak terbuang, lalu lintas broadcast berkurang, dan tiap bagian bisa dipisah dan diamankan, misalnya jaringan lab, ruang guru, dan Wi-Fi tamu.</p></div>
+<div class="box"><h3>Konsep dasar: meminjam bit host</h3><p>Subnet mask menandai mana bit network (1) dan mana bit host (0). Untuk membuat subnet, kita <b>meminjam bit dari bagian host</b> dan menjadikannya bit network.</p><p>Contoh /24: <code>11111111.11111111.11111111.00000000</code>. Jika kita pinjam 2 bit, jadi <code>...11000000</code> = 192, sehingga mask menjadi <code>255.255.255.192</code> atau /26.</p><ul><li>Jumlah subnet = 2<sup>bit dipinjam</sup> (pinjam 2 bit → 4 subnet).</li><li>Jumlah host per subnet = 2<sup>bit host tersisa</sup> − 2 (sisa 6 bit → 62 host).</li><li>Block size = 256 − nilai oktet mask (256 − 192 = 64).</li></ul></div>
+<div class="box"><h3>Tabel CIDR</h3><div class="scroll"><table><tr><th>CIDR</th><th>Subnet mask</th><th>Block size</th><th>Host</th></tr>
+<tr><td>/24</td><td>255.255.255.0</td><td>256</td><td>254</td></tr><tr><td>/25</td><td>255.255.255.128</td><td>128</td><td>126</td></tr>
+<tr><td>/26</td><td>255.255.255.192</td><td>64</td><td>62</td></tr><tr><td>/27</td><td>255.255.255.224</td><td>32</td><td>30</td></tr>
+<tr><td>/28</td><td>255.255.255.240</td><td>16</td><td>14</td></tr><tr><td>/29</td><td>255.255.255.248</td><td>8</td><td>6</td></tr><tr><td>/30</td><td>255.255.255.252</td><td>4</td><td>2</td></tr></table></div></div>
+<div class="box"><h3>Contoh 1: bagi 192.168.10.0/24 menjadi 4 subnet</h3><ol><li>Butuh 4 subnet: 2<sup>2</sup> = 4, jadi pinjam <b>2 bit</b>.</li><li>Prefix baru: 24 + 2 = <b>/26</b>, mask <code>255.255.255.192</code>.</li><li>Block size: 256 − 192 = <b>64</b>.</li><li>Isi tabel: network kelipatan 64, broadcast = network berikutnya − 1, host di antaranya.</li></ol><div class="scroll"><table><tr><th>Subnet</th><th>Network</th><th>Host pertama – terakhir</th><th>Broadcast</th></tr>
+<tr><td>1</td><td>192.168.10.0</td><td>.1 – .62</td><td>192.168.10.63</td></tr><tr><td>2</td><td>192.168.10.64</td><td>.65 – .126</td><td>192.168.10.127</td></tr>
+<tr><td>3</td><td>192.168.10.128</td><td>.129 – .190</td><td>192.168.10.191</td></tr><tr><td>4</td><td>192.168.10.192</td><td>.193 – .254</td><td>192.168.10.255</td></tr></table></div></div>
+<div class="box"><h3>Contoh 2: tiap subnet butuh 25 host</h3><ol><li>Cari n terkecil dengan 2<sup>n</sup> − 2 ≥ 25. Untuk n = 4 hasilnya 14 (kurang), untuk n = 5 hasilnya 30 (cukup). Jadi n = 5 bit host.</li><li>Prefix = 32 − 5 = <b>/27</b>, mask <code>255.255.255.224</code>.</li><li>Block size = 256 − 224 = 32. Subnet: .0, .32, .64, .96, .128, .160, .192, .224 (8 subnet).</li></ol></div>
+<div class="box"><h3>Kesalahan yang sering terjadi</h3><ul><li>Lupa mengurangi 2 (alamat network dan broadcast tidak bisa dipakai).</li><li>Memakai alamat network atau broadcast sebagai IP komputer.</li><li>Dua perangkat satu subnet tetapi beda mask, sehingga tidak bisa saling terhubung.</li></ul></div>
+<div class="tip">Cara cepat: lihat oktet terakhir mask, hitung block size (256 − nilai), lalu network selalu kelipatan block size.</div>`,
+q:["Berapa host yang bisa dipakai pada jaringan /26?",["62","64","30"],0]},
+{t:"DHCP dan DNS",s:"Pemberi IP otomatis dan penerjemah nama domain.",
+b:`<div class="box"><h3>Masalah yang diselesaikan DHCP</h3><p>Bayangkan lab dengan 40 komputer. Mengisi IP, mask, gateway, dan DNS satu per satu itu lama dan rawan salah (misalnya dua komputer dapat IP yang sama). <b>DHCP (Dynamic Host Configuration Protocol)</b> membagikan semuanya secara otomatis.</p></div>
+<div class="box"><h3>Yang dibagikan DHCP</h3><ul><li>IP address dan subnet mask</li><li>Default gateway</li><li>Alamat server DNS</li><li><b>Lease time</b>: lama IP boleh dipakai. Setelah habis, klien harus memperpanjang.</li></ul><p>Server memiliki <b>pool (scope)</b>, yaitu rentang IP yang boleh dibagikan, misalnya 192.168.1.100 sampai 192.168.1.200. IP di luar pool bisa diisi statis untuk server atau printer.</p></div>
+<div class="box"><h3>Proses DORA</h3><ol><li><b>Discover</b>: komputer baru menyiarkan "adakah server DHCP?".</li><li><b>Offer</b>: server menawarkan satu IP.</li><li><b>Request</b>: komputer menjawab "aku mau IP itu".</li><li><b>Acknowledge</b>: server menyetujui dan mencatat sewa.</li></ol><p>Port yang dipakai: UDP 67 (server) dan 68 (klien).</p></div>
+<div class="box"><h3>Masalah yang diselesaikan DNS</h3><p>Manusia mudah mengingat nama seperti <code>google.com</code>, komputer hanya paham angka IP. <b>DNS (Domain Name System)</b> adalah buku telepon Internet yang menerjemahkan nama menjadi IP.</p></div>
+<div class="box"><h3>Cara kerja DNS saat membuka website</h3><ol><li>Browser dan komputer mengecek <b>cache</b> lebih dulu.</li><li>Jika tidak ada, tanya ke <b>DNS resolver</b> (biasanya milik ISP atau 8.8.8.8).</li><li>Resolver bertanya berjenjang: root server, lalu server TLD (.com, .id), lalu server milik domain itu.</li><li>Alamat IP dikembalikan dan disimpan sementara di cache, lalu browser terhubung ke IP tersebut.</li></ol><div class="scroll"><table><tr><th>Record</th><th>Fungsi</th></tr><tr><td>A</td><td>Nama ke IPv4</td></tr><tr><td>AAAA</td><td>Nama ke IPv6</td></tr><tr><td>CNAME</td><td>Alias ke nama lain</td></tr><tr><td>MX</td><td>Server email</td></tr></table></div></div>
+<div class="tip">Kalau ping ke 8.8.8.8 berhasil tetapi google.com gagal, artinya internet normal dan masalahnya di DNS.</div>`,
+q:["Urutan proses DHCP yang benar adalah...",["Discover, Offer, Request, Acknowledge","Request, Discover, Offer, Acknowledge","Offer, Discover, Acknowledge, Request"],0]},
+{t:"Keamanan Jaringan",s:"Ancaman umum dan cara melindungi jaringan.",
+b:`<div class="box"><h3>Tiga tujuan keamanan (CIA)</h3><ul><li><b>Confidentiality</b> (kerahasiaan): data hanya bisa dibaca orang berhak.</li><li><b>Integrity</b> (keutuhan): data tidak diubah tanpa izin.</li><li><b>Availability</b> (ketersediaan): layanan selalu bisa diakses.</li></ul></div>
+<div class="box"><h3>Ancaman umum</h3><ul><li><b>Malware</b>: program jahat. Virus menempel di file, worm menyebar sendiri, ransomware mengunci file dan minta tebusan.</li><li><b>Phishing</b>: pesan atau website palsu yang meniru pihak resmi untuk mencuri password.</li><li><b>DoS/DDoS</b>: membanjiri server dengan permintaan sampai tidak bisa melayani (menyerang availability).</li><li><b>Sniffing</b>: menyadap data yang lewat, mudah terjadi di Wi-Fi terbuka.</li><li><b>Brute force</b>: mencoba banyak kombinasi password.</li><li><b>Man-in-the-middle</b>: penyerang menyelip di antara dua pihak yang berkomunikasi.</li></ul></div>
+<div class="box"><h3>Cara perlindungan</h3><ul><li><b>Firewall</b>: menyaring lalu lintas dengan aturan izinkan atau blokir berdasarkan IP dan port.</li><li><b>Enkripsi</b>: mengacak data agar tidak terbaca penyadap. HTTPS memakai enkripsi TLS.</li><li><b>Wi-Fi aman</b>: pakai WPA2 atau WPA3, hindari WEP dan jaringan tanpa password.</li><li><b>VPN</b>: membuat terowongan terenkripsi lewat Internet.</li><li><b>VLAN</b>: memisahkan jaringan secara logika, misalnya siswa dan guru.</li><li>Update sistem, pasang antivirus, dan lakukan backup rutin.</li></ul></div>
+<div class="box"><h3>Password yang baik</h3><p>Minimal 12 karakter, gabungan huruf besar, kecil, angka, dan simbol, tidak memakai tanggal lahir atau nama sendiri, dan berbeda untuk tiap akun. Aktifkan verifikasi dua langkah bila tersedia.</p></div>
+<div class="tip">Kebiasaan aman: jangan klik tautan dari pengirim tak dikenal, cek alamat website sebelum login, dan jangan bagikan password ke siapa pun.</div>`,
+q:["Yang menyaring lalu lintas jaringan berdasarkan aturan adalah...",["Firewall","Switch","Modem"],0]},
+{t:"Perintah Dasar Jaringan",s:"Alat cek dan diagnosa koneksi lewat terminal.",
+b:`<div class="box"><h3>Cara membuka terminal</h3><p>Windows: tekan <code>Win + R</code>, ketik <code>cmd</code>, Enter. Linux: buka Terminal.</p></div>
+<div class="box"><h3>ipconfig (Windows) / ip a (Linux)</h3><p>Menampilkan konfigurasi IP komputer: IP address, subnet mask, dan default gateway. Tambahkan <code>/all</code> (<code>ipconfig /all</code>) untuk melihat MAC address dan server DNS. Perintah <code>ipconfig /release</code> lalu <code>ipconfig /renew</code> meminta ulang IP dari DHCP.</p></div>
+<div class="box"><h3>ping</h3><p>Mengirim paket ICMP untuk mengecek apakah host bisa dijangkau. Contoh: <code>ping 192.168.1.1</code>. Cara membaca hasil:</p><ul><li><code>Reply from ... time=12ms</code>: berhasil. Waktu 12 ms adalah latency.</li><li><code>TTL</code>: sisa batas lompatan router.</li><li><code>Request timed out</code>: tidak ada balasan (perangkat mati, diblokir firewall, atau jalur putus).</li><li><code>Destination host unreachable</code>: tidak ada jalur menuju tujuan.</li></ul></div>
+<div class="box"><h3>tracert / traceroute</h3><p>Menampilkan setiap router (hop) yang dilalui menuju tujuan beserta waktunya. Berguna untuk menemukan di titik mana koneksi lambat atau terputus.</p></div>
+<div class="box"><h3>nslookup / dig</h3><p>Mengecek DNS, yaitu melihat IP dari sebuah nama domain. Contoh: <code>nslookup google.com</code>.</p></div>
+<div class="box"><h3>arp -a dan netstat</h3><p><code>arp -a</code> menampilkan pasangan IP dan MAC address yang dikenal komputer. <code>netstat -an</code> (Linux: <code>ss -tuln</code>) menampilkan koneksi dan port yang sedang aktif.</p></div>
+<div class="box"><h3>Urutan troubleshooting</h3><ol><li><code>ipconfig</code>: cek apakah IP benar. Jika 169.254.x.x, DHCP gagal.</li><li><code>ping 127.0.0.1</code>: cek kartu jaringan sendiri.</li><li>Ping IP gateway: cek koneksi ke jaringan lokal.</li><li><code>ping 8.8.8.8</code>: cek koneksi Internet.</li><li><code>ping google.com</code>: cek DNS. Jika langkah 4 berhasil tapi 5 gagal, masalahnya DNS.</li></ol></div>`,
+q:["Perintah untuk menguji koneksi ke suatu host adalah...",["ipconfig","ping","nslookup"],1]}
+];
+var nav=document.getElementById('nav'),main=document.getElementById('main');
+function draw(){
+var h=location.hash.replace('#/','');var i=parseInt(h)-1;
+nav.innerHTML='<a href="#/" class="'+(isNaN(i)&&h!=='tentang'?'on':'')+'">Beranda</a><a href="#/tentang" class="'+(h==='tentang'?'on':'')+'">Perkenalan dan Cara Membuat</a>'+M.map(function(m,k){return '<a href="#/'+(k+1)+'" class="'+(k===i?'on':'')+'">'+(k+1)+'. '+m.t+'</a>'}).join('');
+if(h==='tentang'){about();return}
+if(isNaN(i)||!M[i]){home();return}
+var m=M[i],q=m.q;
+main.innerHTML='<article><h2>'+m.t+'</h2><p class="lead">'+m.s+'</p>'+m.b+
+'<div class="box quiz"><h3>Cek pemahaman</h3><p>'+q[0]+'</p>'+q[1].map(function(o,k){return '<button data-k="'+k+'">'+o+'</button>'}).join('')+'<div class="fb" id="fb"></div></div>'+
+'<div class="pager">'+(i>0?'<a class="ghost" href="#/'+i+'">Sebelumnya</a>':'<a class="ghost" href="#/">Beranda</a>')+(i<M.length-1?'<a href="#/'+(i+2)+'">Materi berikutnya</a>':'<a href="#/">Selesai</a>')+'</div></article>';
+main.querySelectorAll('.quiz button').forEach(function(b){b.onclick=function(){
+var k=+b.dataset.k,bs=main.querySelectorAll('.quiz button');
+bs.forEach(function(x){x.disabled=true});bs[q[2]].classList.add('ok');
+var f=document.getElementById('fb');
+if(k===q[2]){f.textContent='Benar!';f.style.color='var(--ok)'}else{b.classList.add('bad');f.textContent='Belum tepat. Jawaban yang benar: '+q[1][q[2]]+'.';f.style.color='var(--bad)'}}});
+window.scrollTo(0,0);document.title=m.t+' – NetLearn';
+}
+function home(){
+document.title='NetLearn – Belajar Jaringan Komputer';
+main.innerHTML='<section class="hero"><h1>Belajar jaringan komputer, satu materi setiap kali.</h1><p>Ringkas, sederhana, dan dilengkapi kuis singkat. Dibuat untuk siswa SMK kelas 11 TKJ.</p><a class="btn" href="#/1">Mulai dari materi 1</a>'+
+'<svg class="net" viewBox="0 0 400 70" role="img" aria-label="Ilustrasi data berpindah antar perangkat"><line x1="40" y1="35" x2="360" y2="35" stroke="#93c5fd" stroke-width="3" stroke-dasharray="6 6"/><rect x="14" y="16" width="52" height="38" rx="8" fill="#fff"/><rect x="334" y="16" width="52" height="38" rx="8" fill="#fff"/><circle class="pk" cx="50" cy="35" r="7"/></svg></section>'+
+'<div class="grid">'+M.map(function(m,k){return '<a class="tile" href="#/'+(k+1)+'"><b>'+(k+1)+'. '+m.t+'</b><span>'+m.s+'</span></a>'}).join('')+'</div>';
+window.scrollTo(0,0);
+}
+function about(){
+document.title='Perkenalan dan Cara Membuat – NetLearn TKJ';
+var T=[["Siva","Prompt Engineer Visual","Membuat prompt untuk gambar dan visual, seperti logo dan tampilan website."],
+["Juli","Prompt Engineer Teks","Membuat prompt untuk materi dan teks yang dipakai di website."],
+["Parlan","Designer dan QA","Mengedit desain dan mengecek hasil supaya rapi dan tidak ada kesalahan."],
+["Raka","Dokumentasi dan Finalisasi","Mencatat proses penggunaan AI dan membantu finalisasi."],
+["Faidan","Project Manager","Membagi tugas, mengatur proses, dan mengecek hasil akhir."]];
+main.innerHTML='<article><h2>Perkenalan dan Cara Membuat</h2><p class="lead">NetLearn dibuat oleh tim siswa TKJ Skanam dengan bantuan AI.</p>'+
+'<div class="box"><h3>Tentang NetLearn</h3><p>NetLearn adalah website belajar jaringan komputer untuk siswa SMK kelas 11 jurusan TKJ. Materinya dibuat singkat, jelas, dan bisa dibuka per materi, lengkap dengan kuis untuk mengecek pemahaman.</p></div>'+
+'<h3 style="margin:18px 0 10px">Tim pembuat</h3><div class="team">'+T.map(function(t){return '<div class="mem"><div class="av">'+t[0][0]+'</div><b>'+t[0]+'</b><div class="rl">'+t[1]+'</div><p>'+t[2]+'</p></div>'}).join('')+'</div>'+
+'<div class="box"><h3>Cara membuat NetLearn</h3><ol><li><b>Membagi tugas.</b> Faidan menentukan alur kerja dan membagi tugas ke anggota tim.</li><li><b>Menyusun prompt teks.</b> Juli menulis prompt untuk materi: topik, tingkat kelas, gaya bahasa, dan seberapa rinci penjelasannya.</li><li><b>Menyusun prompt visual.</b> Siva menulis prompt untuk logo, warna, dan tampilan website.</li><li><b>AI menghasilkan website.</b> Prompt dimasukkan ke AI (Claude) yang membuat materi dan kode website.</li><li><b>Mengecek dan mengedit.</b> Parlan memeriksa desain, isi materi, dan tampilan di laptop dan HP, lalu meminta perbaikan jika ada yang kurang.</li><li><b>Mencatat proses.</b> Raka mencatat prompt yang dipakai dan hasil di setiap tahap sebagai dokumentasi.</li><li><b>Finalisasi.</b> Faidan mengecek hasil akhir, lalu website dipublikasikan.</li></ol></div>'+
+'<div class="box"><h3>Contoh prompt yang dipakai</h3><p>Buatkan website edukasi bernama NetLearn – Belajar Jaringan Komputer untuk siswa SMK kelas 11 jurusan TKJ. Materinya singkat, sederhana, menarik, dan mudah dipahami. Desain modern dengan warna biru dan putih, responsif di laptop dan HP, dan bisa dibuka per materi.</p></div>'+
+'<div class="tip">Tips prompt yang baik: sebutkan nama proyek, siapa penggunanya, tujuan, gaya desain, warna, dan fitur yang diinginkan. Kalau hasilnya belum pas, perbaiki lewat prompt lanjutan yang spesifik, misalnya "penjelasan subnetting dibuat lebih rinci dengan contoh soal".</div>'+
+'<div class="pager"><a class="ghost" href="#/">Beranda</a><a href="#/1">Mulai belajar</a></div></article>';
+window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',draw);draw();
+</script>
+</body>
+</html>
