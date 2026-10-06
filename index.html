@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Netlearn - Belajar Komputer untuk Siswa TKJ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #0B2E5C;
+    --navy-deep: #071F40;
+    --blue: #1E6FD9;
+    --blue-soft: #E7F1FC;
+    --blue-mist: #F3F8FE;
+    --white: #FFFFFF;
+    --ink: #10213D;
+    --ink-soft: #5C7191;
+    --line: #D7E4F5;
+    --radius-card: 18px;
+    --radius-tag: 999px;
+    --maxw: 1180px;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    background: var(--white);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, .display{
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--navy-deep);
+    letter-spacing: -0.01em;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+  ul{ list-style: none; }
+  img, svg{ display:block; max-width:100%; }
+
+  .wrap{
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  :focus-visible{
+    outline: 3px solid var(--blue);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 32px;
+    max-width: var(--maxw);
+    margin: 0 auto;
+  }
+
+  .logo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--navy-deep);
+  }
+
+  .logo .logo-mark{
+    width: 34px; height: 34px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, var(--blue), var(--navy));
+    position: relative;
+    flex-shrink: 0;
+  }
+  .logo .logo-mark::before, .logo .logo-mark::after{
+    content:'';
+    position:absolute;
+    background: var(--white);
+    border-radius: 50%;
+  }
+  .logo .logo-mark::before{ width:6px; height:6px; top:8px; left:8px; }
+  .logo .logo-mark::after{ width:6px; height:6px; bottom:8px; right:8px; }
+
+  .nav-links{
+    display: flex;
+    gap: 36px;
+    align-items: center;
+  }
+  .nav-links a{
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    position: relative;
+    padding: 4px 0;
+  }
+  .nav-links a::after{
+    content:'';
+    position:absolute; left:0; bottom:-2px;
+    width:0; height:2px;
+    background: var(--blue);
+    transition: width 0.25s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+    white-space: nowrap;
+  }
+  .btn-primary{
+    background: var(--blue);
+    color: var(--white);
+    box-shadow: 0 8px 20px rgba(30,111,217,0.28);
+  }
+  .btn-primary:hover{ background: var(--navy); transform: translateY(-1px); }
+  .btn-ghost{
+    background: transparent;
+    color: var(--navy-deep);
+    border: 1.5px solid var(--line);
+  }
+  .btn-ghost:hover{ border-color: var(--blue); color: var(--blue); }
+
+  .nav-cta{ display:flex; align-items:center; gap: 14px; }
+
+  .menu-toggle{
+    display:none;
+    background:none; border:none;
+    width: 40px; height: 40px;
+    cursor:pointer;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+  }
+  .menu-toggle span{
+    width: 22px; height: 2px; background: var(--navy-deep); border-radius: 2px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 88px 32px 60px;
+    background:
+      radial-gradient(600px 300px at 85% 10%, var(--blue-soft) 0%, transparent 70%);
+    overflow: hidden;
+  }
+  .hero-inner{
+    max-width: var(--maxw);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .eyebrow{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blue-soft);
+    color: var(--navy);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: var(--radius-tag);
+    margin-bottom: 22px;
+  }
+  .eyebrow .dot{
+    width:7px; height:7px; border-radius:50%;
+    background: var(--blue);
+  }
+
+  .hero h1{
+    font-size: clamp(2.1rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.12;
+    margin-bottom: 22px;
+  }
+  .hero h1 .accent{ color: var(--blue); }
+
+  .hero p.lead{
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin-bottom: 32px;
+  }
+
+  .hero-actions{ display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+
+  .hero-stats{
+    display: flex;
+    gap: 34px;
+    flex-wrap: wrap;
+  }
+  .hero-stats div{ display:flex; flex-direction:column; }
+  .hero-stats strong{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.6rem;
+    color: var(--navy-deep);
+  }
+  .hero-stats span{ font-size: 0.85rem; color: var(--ink-soft); }
+
+  .hero-visual{
+    position: relative;
+    aspect-ratio: 1 / 0.95;
+  }
+
+  .terminal-tag{
+    position:absolute;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    background: var(--navy-deep);
+    color: #BFE0FF;
+    padding: 6px 10px;
+    border-radius: 8px;
+    box-shadow: 0 10px 24px rgba(11,46,92,0.25);
+  }
+
+  /* ---------- Section shared ---------- */
+  section{ padding: 88px 0; }
+  .section-head{
+    max-width: 640px;
+    margin-bottom: 52px;
+  }
+  .section-tag{
+    color: var(--blue);
+    font-weight: 600;
+    font-size: 0.92rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .section-head h2{
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    margin-bottom: 14px;
+  }
+  .section-head p{
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+  }
+
+  .bg-mist{ background: var(--blue-mist); }
+
+  /* ---------- Materi grid ---------- */
+  .materi-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .materi-card{
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    padding: 30px 26px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .materi-card:hover{ border-color: var(--blue); transform: translateY(-3px); }
+
+  .materi-card.featured{
+    grid-column: span 2;
+    background: linear-gradient(160deg, var(--navy-deep), var(--navy) 65%);
+    color: var(--white);
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .materi-card.featured h3, .materi-card.featured p{ color: var(--white); }
+  .materi-card.featured p{ color: rgba(255,255,255,0.75); }
+  .materi-card.featured:hover{ transform: translateY(-3px); }
+
+  .materi-icon{
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    background: var(--blue-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .materi-card.featured .materi-icon{
+    background: rgba(255,255,255,0.14);
+  }
+
+  .materi-card h3{ font-size: 1.15rem; margin-bottom: 10px; }
+  .materi-card p{ color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 18px; }
+
+  .materi-meta{
+    display: flex;
+    gap: 16px;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .materi-card.featured .materi-meta{ color: rgba(255,255,255,0.7); }
+
+  /* ---------- Fitur ---------- */
+  .fitur-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+  }
+  .fitur-item{
+    background: var(--white);
+    padding: 34px 26px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .fitur-item:nth-child(4n){ border-right: none; }
+  .fitur-item h4{ font-size: 1.02rem; margin: 16px 0 8px; }
+  .fitur-item p{ color: var(--ink-soft); font-size: 0.9rem; }
+  .fitur-num{
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--blue);
+    font-size: 0.85rem;
+  }
+
+  /* ---------- Jalur belajar ---------- */
+  .jalur{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  .jalur::before{
+    content:'';
+    position: absolute;
+    top: 23px; left: 12%; right: 12%;
+    height: 2px;
+    background: var(--line);
+  }
+  .jalur-step{
+    position: relative;
+    padding-top: 64px;
+    text-align: left;
+  }
+  .jalur-num{
+    position: absolute;
+    top: 0; left: 0;
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--blue);
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    z-index: 2;
+  }
+  .jalur-step.done .jalur-num{
+    background: var(--blue);
+    color: var(--white);
+  }
+  .jalur-step h4{ font-size: 1.02rem; margin-bottom: 8px; }
+  .jalur-step p{ color: var(--ink-soft); font-size: 0.9rem; padding-right: 16px; }
+
+  /* ---------- Testimoni ---------- */
+  .testi-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .testi-card{
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    padding: 28px;
+  }
+  .testi-quote{ font-size: 0.98rem; color: var(--ink); margin-bottom: 22px; }
+  .testi-person{ display: flex; align-items: center; gap: 12px; }
+  .avatar{
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--navy));
+    color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .testi-person strong{ display:block; font-size: 0.92rem; }
+  .testi-person span{ display:block; font-size: 0.8rem; color: var(--ink-soft); }
+
+  /* ---------- CTA akhir ---------- */
+  .cta-final{
+    background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+    border-radius: 28px;
+    padding: 64px 56px;
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .cta-final h2{ color: var(--white); font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 14px; }
+  .cta-final p{ color: rgba(255,255,255,0.75); max-width: 44ch; }
+  .cta-final .btn-primary{ background: var(--white); color: var(--navy-deep); box-shadow:none; }
+  .cta-final .btn-primary:hover{ background: var(--blue-soft); }
+  .cta-actions{ display:flex; flex-direction:column; gap:12px; }
+  .cta-final .btn-ghost{ border-color: rgba(255,255,255,0.3); color: var(--white); }
+  .cta-final .btn-ghost:hover{ border-color: var(--white); color: var(--white); }
+
+  /* ---------- Footer ---------- */
+  footer{
+    background: var(--navy-deep);
+    color: rgba(255,255,255,0.7);
+    padding: 56px 0 28px;
+    margin-top: 40px;
+  }
+  .footer-grid{
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+  .footer-grid h4{ color: var(--white); font-size: 0.95rem; margin-bottom: 16px; }
+  .footer-grid ul li{ margin-bottom: 10px; font-size: 0.9rem; }
+  .footer-grid ul li a:hover{ color: var(--white); }
+  .footer-logo{
+    display:flex; align-items:center; gap:10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    color: var(--white);
+    font-size: 1.2rem;
+    margin-bottom: 14px;
+  }
+  .footer-bottom{
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 980px){
+    .hero-inner{ grid-template-columns: 1fr; }
+    .hero-visual{ order: -1; max-width: 420px; margin: 0 auto; }
+    .materi-grid{ grid-template-columns: repeat(2, 1fr); }
+    .materi-card.featured{ grid-column: span 2; }
+    .fitur-grid{ grid-template-columns: repeat(2, 1fr); }
+    .fitur-item:nth-child(2n){ border-right: none; }
+    .fitur-item:nth-child(4n){ border-right: 1px solid var(--line); }
+    .jalur{ grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
+    .jalur::before{ display:none; }
+    .testi-grid{ grid-template-columns: 1fr 1fr; }
+    .cta-final{ grid-template-columns: 1fr; text-align:left; }
+    .footer-grid{ grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 720px){
+    .wrap{ padding: 0 20px; }
+    .nav{ padding: 16px 20px; }
+    .nav-links{
+      position: fixed;
+      top: 66px; left:0; right:0;
+      background: var(--white);
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 20px;
+      gap: 18px;
+      border-bottom: 1px solid var(--line);
+      transform: translateY(-130%);
+      transition: transform 0.25s ease;
+    }
+    .nav-links.open{ transform: translateY(0); }
+    .menu-toggle{ display:flex; }
+    .nav-cta .btn-ghost{ display:none; }
+    .hero{ padding: 48px 20px 40px; }
+    .hero-actions{ flex-direction: column; }
+    .hero-actions .btn{ width: 100%; }
+    .hero-stats{ gap: 22px; }
+    section{ padding: 56px 0; }
+    .materi-grid{ grid-template-columns: 1fr; }
+    .materi-card.featured{ grid-column: span 1; }
+    .fitur-grid{ grid-template-columns: 1fr; }
+    .fitur-item{ border-right: none !important; }
+    .jalur{ grid-template-columns: 1fr; }
+    .testi-grid{ grid-template-columns: 1fr; }
+    .cta-final{ padding: 40px 26px; }
+    .footer-grid{ grid-template-columns: 1fr; gap: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#" class="logo"><span class="logo-mark"></span>Netlearn</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#materi">Materi</a>
+      <a href="#jalur">Jalur Belajar</a>
+      <a href="#fitur">Kenapa Netlearn</a>
+      <a href="#testimoni">Testimoni</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost">Masuk</a>
+      <a href="#materi" class="btn btn-primary">Mulai Belajar</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Buka menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>Untuk siswa SMK kelas 11 TKJ</span>
+      <h1>Kuasai jaringan dan komputer dari <span class="accent">dasar sampai siap kerja</span></h1>
+      <p class="lead">Netlearn menyusun materi Teknik Komputer dan Jaringan kelas 11 jadi modul yang runtut, dengan praktik langsung ala teknisi—bukan cuma teori di slide.</p>
+      <div class="hero-actions">
+        <a href="#materi" class="btn btn-primary">Lihat semua materi</a>
+        <a href="#jalur" class="btn btn-ghost">Lihat jalur belajar</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>6</strong><span>Mata pelajaran inti</span></div>
+        <div><strong>120+</strong><span>Modul & praktik</span></div>
+        <div><strong>40</strong><span>Simulasi jaringan</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <svg viewBox="0 0 420 400" width="100%" height="100%">
+        <defs>
+          <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#1E6FD9" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#0B2E5C" stop-opacity="0.15"/>
+          </linearGradient>
+        </defs>
+        <!-- connecting lines -->
+        <g stroke="url(#lineGrad)" stroke-width="1.6" fill="none">
+          <line x1="70" y1="80" x2="200" y2="150"/>
+          <line x1="200" y1="150" x2="340" y2="90"/>
+          <line x1="200" y1="150" x2="150" y2="270"/>
+          <line x1="200" y1="150" x2="310" y2="260"/>
+          <line x1="150" y1="270" x2="80" y2="330"/>
+          <line x1="150" y1="270" x2="310" y2="260"/>
+          <line x1="310" y1="260" x2="360" y2="340"/>
+          <line x1="70" y1="80" x2="150" y2="270"/>
+        </g>
+        <!-- nodes -->
+        <g>
+          <circle cx="70" cy="80" r="7" fill="#1E6FD9"/>
+          <circle cx="340" cy="90" r="6" fill="#0B2E5C"/>
+          <circle cx="200" cy="150" r="11" fill="#0B2E5C"/>
+          <circle cx="150" cy="270" r="8" fill="#1E6FD9"/>
+          <circle cx="310" cy="260" r="7" fill="#0B2E5C"/>
+          <circle cx="80" cy="330" r="6" fill="#1E6FD9"/>
+          <circle cx="360" cy="340" r="6" fill="#0B2E5C"/>
+        </g>
+        <!-- pulsing highlight node -->
+        <circle cx="200" cy="150" r="11" fill="none" stroke="#1E6FD9" stroke-width="2">
+          <animate attributeName="r" values="11;26;11" dur="2.8s" repeatCount="indefinite"/>
+          <animate attributeName="stroke-opacity" values="0.8;0;0.8" dur="2.8s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+      <span class="terminal-tag" style="top:6%; left:2%;">ping 192.168.1.1</span>
+      <span class="terminal-tag" style="bottom:14%; right:0%;">status: connected</span>
+      <span class="terminal-tag" style="top:52%; left:70%;">VLAN 10</span>
+    </div>
+  </div>
+</section>
+
+<section id="materi">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">Materi pembelajaran</span>
+      <h2>Enam mata pelajaran inti TKJ kelas 11</h2>
+      <p>Disusun mengikuti kompetensi keahlian Teknik Komputer dan Jaringan, dari perakitan perangkat sampai administrasi jaringan.</p>
+    </div>
+
+    <div class="materi-grid">
+      <div class="materi-card featured">
+        <div>
+          <div class="materi-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+          </div>
+          <h3>Teknologi Jaringan Kabel dan Nirkabel</h3>
+          <p>Pelajari topologi, pengkabelan structured cabling, dan konfigurasi jaringan wireless dari nol lewat simulasi interaktif.</p>
+        </div>
+        <div class="materi-meta"><span>24 modul</span><span>8 praktik</span></div>
+      </div>
+
+      <div class="materi-card">
+        <div class="materi-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B2E5C" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        </div>
+        <h3>Administrasi Sistem Jaringan</h3>
+        <p>Konfigurasi server, DHCP, DNS, dan manajemen pengguna di sistem operasi jaringan.</p>
+        <div class="materi-meta"><span>20 modul</span><span>6 praktik</span></div>
+      </div>
+
+      <div class="materi-card">
+        <div class="materi-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B2E5C" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        </div>
+        <h3>Administrasi Infrastruktur Jaringan</h3>
+        <p>Routing, switching, dan troubleshooting koneksi antar perangkat jaringan skala kecil-menengah.</p>
+        <div class="materi-meta"><span>18 modul</span><span>7 praktik</span></div>
+      </div>
+
+      <div class="materi-card">
+        <div class="materi-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B2E5C" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16"/></svg>
+        </div>
+        <h3>Teknologi Layanan Jaringan</h3>
+        <p>Cloud computing, virtualisasi, dan layanan jaringan modern yang dipakai di dunia kerja.</p>
+        <div class="materi-meta"><span>16 modul</span><span>5 praktik</span></div>
+      </div>
+
+      <div class="materi-card">
+        <div class="materi-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B2E5C" stroke-width="1.8"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg>
+        </div>
+        <h3>Pemrograman Dasar</h3>
+        <p>Logika pemrograman dan dasar pengkodean sebagai bekal otomasi dan pengembangan sistem.</p>
+        <div class="materi-meta"><span>22 modul</span><span>10 praktik</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fitur" class="bg-mist">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">Kenapa Netlearn</span>
+      <h2>Belajar teknis butuh cara yang teknis juga</h2>
+      <p>Setiap fitur dirancang supaya siswa TKJ benar-benar siap praktik, bukan cuma hafal istilah.</p>
+    </div>
+
+    <div class="fitur-grid">
+      <div class="fitur-item">
+        <span class="fitur-num">/01</span>
+        <h4>Simulasi jaringan nyata</h4>
+        <p>Konfigurasi router dan switch virtual sebelum pegang perangkat asli di lab sekolah.</p>
+      </div>
+      <div class="fitur-item">
+        <span class="fitur-num">/02</span>
+        <h4>Dibimbing guru produktif</h4>
+        <p>Setiap modul disusun bersama guru TKJ dan direview sesuai kurikulum terbaru.</p>
+      </div>
+      <div class="fitur-item">
+        <span class="fitur-num">/03</span>
+        <h4>Latihan uji kompetensi</h4>
+        <p>Soal-soal berbasis studi kasus, menyerupai format Uji Kompetensi Keahlian (UKK).</p>
+      </div>
+      <div class="fitur-item">
+        <span class="fitur-num">/04</span>
+        <h4>Bisa diakses di HP</h4>
+        <p>Ulang materi kapan saja lewat HP saat menunggu jam praktik atau di perjalanan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="jalur">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">Jalur belajar</span>
+      <h2>Urutan belajar yang disarankan</h2>
+      <p>Ikuti tahapan ini supaya dasar jaringan kamu kuat sebelum masuk ke materi administrasi dan keamanan.</p>
+    </div>
+
+    <div class="jalur">
+      <div class="jalur-step done">
+        <div class="jalur-num">1</div>
+        <h4>Dasar perangkat & kabel</h4>
+        <p>Kenali komponen komputer dan cara pengkabelan jaringan yang benar.</p>
+      </div>
+      <div class="jalur-step done">
+        <div class="jalur-num">2</div>
+        <h4>Konsep jaringan</h4>
+        <p>Pahami topologi, IP address, dan model OSI sebagai fondasi.</p>
+      </div>
+      <div class="jalur-step">
+        <div class="jalur-num">3</div>
+        <h4>Administrasi server</h4>
+        <p>Praktik konfigurasi DHCP, DNS, dan layanan jaringan dasar.</p>
+      </div>
+      <div class="jalur-step">
+        <div class="jalur-num">4</div>
+        <h4>Routing & keamanan</h4>
+        <p>Atur routing antar jaringan dan terapkan pengamanan dasar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimoni" class="bg-mist">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">Kata siswa</span>
+      <h2>Dipakai siswa TKJ di berbagai SMK</h2>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card">
+        <p class="testi-quote">"Simulasi konfigurasi routernya kerasa banget mirip pas praktik beneran di lab."</p>
+        <div class="testi-person">
+          <div class="avatar">RA</div>
+          <div><strong>Rian Ardiansyah</strong><span>Kelas 11 TKJ 2</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-quote">"Materi administrasi jaringannya runtut, jadi nggak bingung mulai dari mana."</p>
+        <div class="testi-person">
+          <div class="avatar">SN</div>
+          <div><strong>Salsa Nuraini</strong><span>Kelas 11 TKJ 1</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-quote">"Soal latihannya mirip UKK, jadi lebih siap pas ujian praktik kejuruan."</p>
+        <div class="testi-person">
+          <div class="avatar">FD</div>
+          <div><strong>Fauzan Dwi</strong><span>Kelas 11 TKJ 3</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="mulai">
+  <div class="wrap">
+    <div class="cta-final">
+      <div>
+        <h2>Siap kuasai jaringan dari sekarang?</h2>
+        <p>Buka modul pertama gratis dan lanjutkan sesuai jalur belajar kelas 11 TKJ.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="#materi" class="btn btn-primary">Buka modul pertama</a>
+        <a href="#" class="btn btn-ghost">Tanya guru pembimbing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo"><span class="logo-mark"></span>Netlearn</div>
+        <p style="max-width:32ch; font-size:0.9rem;">Platform belajar komputer dan jaringan untuk siswa SMK jurusan TKJ.</p>
+      </div>
+      <div>
+        <h4>Materi</h4>
+        <ul>
+          <li><a href="#materi">Jaringan Kabel & Nirkabel</a></li>
+          <li><a href="#materi">Administrasi Sistem</a></li>
+          <li><a href="#materi">Infrastruktur Jaringan</a></li>
+          <li><a href="#materi">Pemrograman Dasar</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Belajar</h4>
+        <ul>
+          <li><a href="#jalur">Jalur belajar</a></li>
+          <li><a href="#fitur">Kenapa Netlearn</a></li>
+          <li><a href="#testimoni">Testimoni siswa</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontak</h4>
+        <ul>
+          <li><a href="mailto:halo@netlearn.id">halo@netlearn.id</a></li>
+          <li><a href="#">Panduan guru</a></li>
+          <li><a href="#">Bantuan siswa</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Netlearn. Dibuat untuk siswa SMK jurusan TKJ.</span>
+      <span>Materi mengikuti kurikulum TKJ kelas 11</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    links.classList.toggle('open');
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+</script>
+
+</body>
+  </html>
